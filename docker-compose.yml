@@ -1,18 +1,37 @@
-version: "2"
+#docker compose version
+version: "3.7"
+
+# list service yang akan di run
 services:
+  # create item-app service
   item-app:
+    # memberikan nama pada container
+    container_name: item-app
+    # menggunakan image item-app
     image: krisnn/item-app:v1
-    restart: always
+    # command restart jika container gagal start
+    restart: on-failure
+    # expose port 8080 ke 80
     ports:
-      - "8080:8080"
+      - "80:8080"
+    # memberikan perintah start ketika service item-db sudah berjalan
     depends_on:
       - item-db
+  # create item-app service
   item-db:
+    # memberikan nama pada container
+    container_name: item-db
+    # menggunakan image mongo
     image: mongo:3
-    restart: always
+    # command restart jika container gagal start
+    restart: on-failure
+    # expose port 27017 ke 27017
     ports:
-      - 27017
+      - "27017:27017"
+    # menggunakan volume app-db untuk direktori /data/db
     volumes:
       - app-db:/data/db
+# list volume
 volumes:
+  # membuat volume app-db
   app-db:

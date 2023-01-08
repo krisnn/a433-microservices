@@ -1,5 +1,5 @@
 # Menggunakan image node
-FROM node:14.21.2-bullseye-slim
+FROM node:14-alpine
 
 # Menentukan direktori yang akan digunakan dan membuat folder app
 WORKDIR /app
@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Menentukan environment untuk digunakan
-ENV NODE_ENV=production
-ENV DB_HOST=item-db
+ENV NODE_ENV=production DB_HOST=item-db
 
 # Menjalankan perintah untuk membuat paket 
 RUN npm install --production --unsafe-perm && npm run build
@@ -18,4 +17,4 @@ RUN npm install --production --unsafe-perm && npm run build
 EXPOSE 8080
 
 # Menjalankan perintah untuk menjalankan aplikasi
-CMD [ "npm start" ]
+CMD ["npm", "start"]
